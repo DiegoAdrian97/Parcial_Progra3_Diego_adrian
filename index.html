@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Frutería</title>
+    <link rel="stylesheet" href="./assets/css/index.css" />
+  </head>
+  <body>
+    <header>
+      <div class="logo">Frutería</div>
+      <input type="text" placeholder="Buscar..." />
+      <button id="boton_carrito" class="boton_carrito">
+        <span id="contador_carrito">Carrito-Productos: 0</span>
+      </button>
+    </header>
+
+    <main>
+      <h2 style="display: inline-block">Nuestras frutas</h2>
+      <button id="ordenar-nombre">
+        Ordenar por nombre
+      </button>
+      <button id="ordenar-precio">
+        Ordenar por precio
+      </button>
+      <div class="lista_productos"></div>
+    </main>
+
+    <section class="seccion_carrito">
+      <h2>Carrito</h2>
+      <div class="carrito-items"></div>
+      <div class="carrito-total">Total: $7000</div>
+      <button id="vaciar" class="vaciar">Vaciar Carrito</button>
+    </section>
+    <script src="./js/main.js"></script>
+  </body>
+</html>
