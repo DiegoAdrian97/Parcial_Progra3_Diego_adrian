@@ -44,7 +44,6 @@ function init() {
   filtrarProductos();
   ordenarPorNombre();
   ordenarPorPrecio();
-  addToCart();
   cargarCarrito();
   vaciarCarrito();
   mostrarCarrito();
