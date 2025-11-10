@@ -1,6 +1,6 @@
 const carrito = [];
 let categoriaActual = "Todos";
-let productosGlobal = []; // 🔹 Guardaremos aquí los productos del backend
+let productosGlobal = []; //
 
 // === FUNCIÓN PRINCIPAL ===
 function init() {
@@ -25,7 +25,7 @@ async function obtenerProductos(filtro = "") {
   try {
     const res = await fetch("http://localhost:3000/productos");
     const productos = await res.json();
-    productosGlobal = productos; // guardamos globalmente
+    productosGlobal = productos;
     renderizarProductos(productos, filtro);
   } catch (error) {
     console.error("Error al obtener productos:", error);
@@ -254,5 +254,40 @@ dropdownButtons.forEach((btn) =>
     wrapper.classList.toggle("open");
   })
 );
+
+// ====== CONFIRMAR COMPRA ======
+
+document.addEventListener("DOMContentLoaded", () => {
+  const btnFinalizar = document.getElementById("finalizar_compra");
+  btnFinalizar.addEventListener("click", finalizarCompra);
+});
+
+function finalizarCompra() {
+  const userName = localStorage.getItem("userName");
+  const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+  let total = 0;
+  for (let i = 0; i < carrito.length; i++) {
+    total += carrito[i].precio * carrito[i].cantidad;
+  }
+
+  const compra = {
+    cliente_nombre: userName,
+    productos: carrito,
+    total: total,
+  };
+
+  fetch("http://localhost:3000/compras", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(compra),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+      window.location.href = "/compra_confirmada.html";
+    })
+    .catch((err) => console.error("Error al guardar la compra:", err));
+}
 
 document.addEventListener("DOMContentLoaded", init);

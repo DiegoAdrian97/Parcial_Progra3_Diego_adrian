@@ -10,6 +10,7 @@
   <body>
     <div class="container" id="login-container">
       <h2>Bienvenido a Electronics Store</h2>
+
       <form id="login-form">
         <div class="input-group">
           <label for="nombre">Ingresa tu Nombre:</label>
@@ -21,7 +22,18 @@
             placeholder="Ej: Juan Pérez"
           />
         </div>
+        <div id="campo-admin">
+          <label for="contraseña">Contraseña de Admin:</label>
+          <input
+            class="form_input"
+            type="current-password"
+            id="contraseña"
+            placeholder="Código secreto"
+          />
+        </div>
+
         <button type="submit">Ingresar</button>
+        <button type="button" id="btn-admin">Acceder como admin</button>
       </form>
     </div>
 

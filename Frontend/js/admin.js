@@ -4,34 +4,23 @@ document.addEventListener("DOMContentLoaded", () => {
   const nombre = document.getElementById("nombre");
   const precio = document.getElementById("precio");
   const imagen = document.getElementById("imagen");
+  const btnCerrarSesion = document.getElementById("cerrar-sesion");
 
-  // Cargar productos desde localStorage o ejemplo inicial
-  let productos = JSON.parse(localStorage.getItem("productos")) || [
-    {
-      id: 1,
-      nombre: "PlayStation 5",
-      precio: 800,
-      imagen: "./assets/img/ps5.jpg",
-    },
-    {
-      id: 2,
-      nombre: "Xbox Series X",
-      precio: 750,
-      imagen: "./assets/img/xbox-seriesx.jpg",
-    },
-    {
-      id: 3,
-      nombre: "iPhone 15",
-      precio: 1200,
-      imagen:
-        "./assets/img/xbox.jpg",
-    },
-  ];
+  let productos = [];
 
-  function guardar() {
-    localStorage.setItem("productos", JSON.stringify(productos));
+  //Cargar productos desde el backend
+  async function cargarProductos() {
+    try {
+      const res = await fetch("http://localhost:3000/productos");
+      productos = await res.json();
+      renderProductos();
+    } catch (error) {
+      console.error("Error al cargar productos:", error);
+      lista.innerHTML = "<p>Error al cargar productos.</p>";
+    }
   }
 
+  //
   function renderProductos() {
     lista.innerHTML = "";
     productos.forEach((p) => {
@@ -39,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
       div.classList.add("producto");
       div.innerHTML = `
         <div class="info">
-          <img src="${p.imagen || "https://via.placeholder.com/60"}" />
+          <img src="${p.imagen || ""}" />
           <span><strong>${p.nombre}</strong> - $${p.precio}</span>
         </div>
         <div class="botones">
@@ -48,22 +37,39 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
       `;
 
-      // Botón eliminar
-      div.querySelector(".eliminar").addEventListener("click", () => {
-        productos = productos.filter((x) => x.id !== p.id);
-        guardar();
-        renderProductos();
+      // 🗑 Eliminar producto
+      div.querySelector(".eliminar").addEventListener("click", async () => {
+        if (!confirm(`¿Eliminar ${p.nombre}?`)) return;
+        try {
+          await fetch(`http://localhost:3000/productos/${p.id}`, {
+            method: "DELETE",
+          });
+          await cargarProductos();
+        } catch (err) {
+          alert("Error al eliminar producto");
+          console.error(err);
+        }
       });
 
-      // Botón editar
-      div.querySelector(".editar").addEventListener("click", () => {
+      //
+      div.querySelector(".editar").addEventListener("click", async () => {
         const nuevoNombre = prompt("Nuevo nombre:", p.nombre);
         const nuevoPrecio = prompt("Nuevo precio:", p.precio);
         if (nuevoNombre && nuevoPrecio) {
-          p.nombre = nuevoNombre;
-          p.precio = Number(nuevoPrecio);
-          guardar();
-          renderProductos();
+          try {
+            await fetch(`http://localhost:3000/productos/${p.id}`, {
+              method: "PUT",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                nombre: nuevoNombre.trim(),
+                precio: parseFloat(nuevoPrecio),
+              }),
+            });
+            await cargarProductos();
+          } catch (err) {
+            alert("Error al actualizar producto");
+            console.error(err);
+          }
         }
       });
 
@@ -71,25 +77,41 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  form.addEventListener("submit", (e) => {
+  //
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     const nuevo = {
-      id: Date.now(),
       nombre: nombre.value.trim(),
       precio: parseFloat(precio.value),
-      imagen: imagen.value.trim() || "https://via.placeholder.com/60",
+      imagen: imagen.value.trim() || "",
     };
 
     if (nuevo.nombre && nuevo.precio) {
-      productos.push(nuevo);
-      guardar();
-      renderProductos();
-      form.reset();
+      try {
+        await fetch("http://localhost:3000/productos", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(nuevo),
+        });
+        form.reset();
+        await cargarProductos();
+      } catch (err) {
+        alert("Error al agregar producto");
+        console.error(err);
+      }
     } else {
       alert("Completa nombre y precio correctamente.");
     }
   });
 
-  renderProductos();
+  //
+  btnCerrarSesion.addEventListener("click", () => {
+    localStorage.removeItem("userName");
+    localStorage.removeItem("isAdmin");
+    window.location.href = "bienvenida.html";
+  });
+
+  //
+  cargarProductos();
 });
