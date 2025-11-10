@@ -1,0 +1,24 @@
+CREATE DATABASE IF NOT EXISTS electronicsStore_db;
+USE electronicsStore_db;
+
+-- Crear tabla productos
+CREATE TABLE IF NOT EXISTS productos (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(100),
+  precio DECIMAL(10,2),
+  img VARCHAR(255),
+  categoria VARCHAR(100)
+);
+
+-- Insertar los productos
+INSERT INTO productos (nombre, precio, img, categoria) VALUES
+('iPhone 14', 950000, './assets/img/Iphon14.jpg', 'Celulares'),
+('Samsung Galaxy S23', 870000, './assets/img/galaxy-s23.jpg', 'Celulares'),
+('Motorola Edge 40', 520000, './assets/img/moto-edge40.jpg', 'Celulares'),
+('Xiaomi Redmi Note 13', 380000, './assets/img/redminote13.jpg', 'Celulares'),
+('iPhone SE (3ra Gen)', 450000, './assets/img/iphon-13promax.jpg', 'Celulares'),
+('PlayStation 5', 890000, './assets/img/ps5.jpg', 'Consolas'),
+('Xbox Series X', 870000, './assets/img/xbox-seriesx.jpg', 'Consolas'),
+('Nintendo Switch OLED', 650000, './assets/img/switch-oled.jpg', 'Consolas'),
+('PlayStation 4 Slim', 480000, './assets/img/ps4-slim.jpg', 'Consolas'),
+('Xbox Series S', 520000, './assets/img/xbox-seriess.jpg', 'Consolas');

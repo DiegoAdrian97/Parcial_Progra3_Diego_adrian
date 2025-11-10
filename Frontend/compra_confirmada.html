@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Compra Confirmada | Electronics Store</title>
+    <link rel="stylesheet" href="./assets/css/compra_confirmada.css" />
+  </head>
+  <body>
+    <div class="confirmacion-container">
+      <h1 class="empresa">Electronics Store</h1>
+
+      <div class="mensaje">
+        <h2>¡Compra confirmada con éxito!</h2>
+        <p>Gracias por tu compra, <span id="nombre-usuario"></span>.</p>
+        <p>Estos son los detalles de tu pedido:</p>
+      </div>
+
+      <div class="detalles-compra">
+        <table>
+          <thead>
+            <tr>
+              <th>Producto</th>
+              <th>Cantidad</th>
+              <th>Precio Unitario</th>
+              <th>Subtotal</th>
+            </tr>
+          </thead>
+          <tbody id="lista-productos"></tbody>
+        </table>
+
+        <div class="total">
+          <p><strong>Total:</strong> <span id="total-final"></span></p>
+          <p><strong>Fecha:</strong> <span id="fecha-hoy"></span></p>
+        </div>
+      </div>
+
+      <button id="volver" class="volver">Volver al inicio</button>
+    </div>
+
+    <script src="./js/compra_confirmada.js"></script>
+  </body>
+</html>
