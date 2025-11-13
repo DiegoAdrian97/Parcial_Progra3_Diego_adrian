@@ -260,12 +260,12 @@ main h2 {
 /* === CAMBIOS PARA ALINEAR PRODUCTOS EN CARRITO === */
 
 .cart-info {
-  flex: 1; 
+  flex: 1;
   text-align: left;
 }
 
 .cart-product h3 {
-  font-size: 0.95rem; 
+  font-size: 0.95rem;
   margin: 0;
 }
 
@@ -410,7 +410,6 @@ header .nav-toggle {
     padding: 1rem;
   }
 
-
   header .nav-toggle {
     display: block;
   }
@@ -483,3 +482,14 @@ header .nav-toggle {
   }
 }
 /* === FIN RESPONSIVE NAVBAR === */
+
+/*LOGOUT BUTTON*/
+#logout-button {
+  background: linear-gradient(90deg, #ff3b3b, #ff0077);
+  box-shadow: 0 0 15px rgba(255, 0, 77, 0.4);
+}
+
+#logout-button:hover {
+  box-shadow: 0 0 25px rgba(255, 0, 77, 0.7);
+  transform: translateY(-3px);
+}

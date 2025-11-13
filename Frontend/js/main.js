@@ -255,6 +255,13 @@ dropdownButtons.forEach((btn) =>
   })
 );
 
+const logoutButton = document.querySelector("#logout-button");
+logoutButton.addEventListener("click", () => {
+  localStorage.removeItem("userName");
+  localStorage.removeItem("isAdmin");
+  window.location.href = "bienvenida.html";
+});
+
 // ====== CONFIRMAR COMPRA ======
 
 document.addEventListener("DOMContentLoaded", () => {

@@ -106,17 +106,6 @@ button:hover {
   text-shadow: 0 0 8px rgba(0, 255, 128, 0.5);
 }
 
-#logout-button {
-  background: linear-gradient(90deg, #ff3b3b, #ff0077);
-  margin-top: 1.8rem;
-  box-shadow: 0 0 15px rgba(255, 0, 77, 0.4);
-}
-
-#logout-button:hover {
-  box-shadow: 0 0 25px rgba(255, 0, 77, 0.7);
-  transform: translateY(-3px);
-}
-
 .hidden {
   display: none;
 }
@@ -127,13 +116,8 @@ button:hover {
 }
 
 #campo-admin {
-  display: none;
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  margin-top: 1rem;
-}
-
-#campo-admin.visible {
   display: block;
   opacity: 1;
+  transition: opacity 0.4s ease;
+  margin-top: 1rem;
 }
