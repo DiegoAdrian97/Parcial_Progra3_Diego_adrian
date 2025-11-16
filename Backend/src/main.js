@@ -4,10 +4,8 @@ import connection from "./api/database/db.js";
 const app = express();
 app.use(express.json());
 
-
 // Lista de orígenes permitidos
 const whiteList = ["http://localhost:5500", "http://127.0.0.1:5500"];
-
 
 // Configuración de CORS
 const corsOptions = {
@@ -20,8 +18,6 @@ const corsOptions = {
   },
   credentials: true,
 };
-
-
 
 app.use(cors(corsOptions));
 app.use((req, res, next) => {
@@ -147,6 +143,7 @@ app.post("/compras", (req, res) => {
           message: "Compra guardada con éxito",
           id: result.insertId,
         });
+        console.log("Compra guardada con éxito", result.insertId);
       }
     );
   } catch (error) {
