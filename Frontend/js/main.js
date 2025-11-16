@@ -15,6 +15,18 @@ function init() {
   actualizarTotal();
   actualizarContadorCarrito();
   filtrarPorCategoria();
+  chequearLogin();
+}
+
+function chequearLogin() {
+  const usuarioLogeado = localStorage.getItem("userName");
+  if (!usuarioLogeado) {
+    setTimeout(() => {
+      carrito.length = 0;
+      localStorage.removeItem("carrito");
+      window.location.href = "bienvenida.html";
+    }, 800);
+  }
 }
 
 // === OBTENER PRODUCTOS DEL BACKEND ===
@@ -58,7 +70,7 @@ function renderizarProductos(lista, filtro = "") {
     `;
     contenedor.appendChild(div);
   });
-
+  productosFiltrados = lista;
   addToCart();
 }
 
@@ -74,7 +86,7 @@ function filtrarProductos() {
 function ordenarPorNombre() {
   const btn = document.getElementById("ordenar-nombre");
   btn.addEventListener("click", () => {
-    const lista = [...productosGlobal].sort((a, b) =>
+    const lista = [...productosFiltrados].sort((a, b) =>
       a.nombre.localeCompare(b.nombre)
     );
     renderizarProductos(lista);
@@ -84,7 +96,7 @@ function ordenarPorNombre() {
 function ordenarPorPrecio() {
   const btn = document.getElementById("ordenar-precio");
   btn.addEventListener("click", () => {
-    const lista = [...productosGlobal].sort((a, b) => a.precio - b.precio);
+    const lista = [...productosFiltrados].sort((a, b) => a.precio - b.precio);
     renderizarProductos(lista);
   });
 }
@@ -259,6 +271,7 @@ const logoutButton = document.querySelector("#logout-button");
 logoutButton.addEventListener("click", () => {
   localStorage.removeItem("userName");
   localStorage.removeItem("isAdmin");
+  localStorage.removeItem("carrito");
   window.location.href = "bienvenida.html";
 });
 
@@ -292,7 +305,7 @@ function finalizarCompra() {
     .then((res) => res.json())
     .then((data) => {
       console.log(data);
-      window.location.href = "/compra_confirmada.html";
+      window.location.href = "./compra_confirmada.html";
     })
     .catch((err) => console.error("Error al guardar la compra:", err));
 }

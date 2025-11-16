@@ -35,8 +35,6 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("volver").addEventListener("click", () => {
     localStorage.removeItem("carrito");
     localStorage.removeItem("productos");
-    localStorage.removeItem("userName");
-
-    window.location.href = "bienvenida.html";
+    window.location.href = "index.html";
   });
 });

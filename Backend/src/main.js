@@ -1,11 +1,14 @@
 import express from "express";
 import cors from "cors";
-import db from "./db.js";
+import connection from "./api/database/db.js";
 const app = express();
+app.use(express.json());
+
 
 // Lista de orígenes permitidos
 const whiteList = ["http://localhost:5500", "http://127.0.0.1:5500"];
-app.use(express.json());
+
+
 // Configuración de CORS
 const corsOptions = {
   origin: function (origin, callback) {
@@ -17,6 +20,9 @@ const corsOptions = {
   },
   credentials: true,
 };
+
+
+
 app.use(cors(corsOptions));
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", req.headers.origin);
@@ -49,7 +55,7 @@ app.get("/productos", (req, res) => {
     params.push(`%${filtro}%`);
   }
 
-  db.query(query, params, (err, results) => {
+  connection.query(query, params, (err, results) => {
     if (err) {
       console.error("Error en la consulta:", err);
       res.status(500).send("Error al obtener productos");
@@ -66,7 +72,7 @@ app.post("/productos", (req, res) => {
     return res.status(400).send("El nombre y el precio son obligatorios");
   }
   if (imagen && imagen.trim() !== "") {
-    db.query(
+    connection.query(
       "INSERT INTO productos (nombre, precio, imagen) VALUES (?, ?, ?)",
       [nombre, precio, imagen],
       (err, result) => {
@@ -75,7 +81,7 @@ app.post("/productos", (req, res) => {
       }
     );
   } else {
-    db.query(
+    connection.query(
       "INSERT INTO productos (nombre, precio) VALUES (?, ?)",
       [nombre, precio],
       (err, result) => {
@@ -90,7 +96,7 @@ app.post("/productos", (req, res) => {
 app.put("/productos/:id", (req, res) => {
   const { id } = req.params;
   const { nombre, precio } = req.body;
-  db.query(
+  connection.query(
     "UPDATE productos SET nombre = ?, precio = ? WHERE id = ?",
     [nombre, precio, id],
     (err) => {
@@ -103,7 +109,7 @@ app.put("/productos/:id", (req, res) => {
 //Eliminar productos
 app.delete("/productos/:id", (req, res) => {
   const { id } = req.params;
-  db.query("DELETE FROM productos WHERE id = ?", [id], (err) => {
+  connection.query("DELETE FROM productos WHERE id = ?", [id], (err) => {
     if (err) return res.status(500).send(err);
     res.json({ mensaje: "Producto eliminado" });
   });
@@ -129,7 +135,7 @@ app.post("/compras", (req, res) => {
       .join(", ");
     const sql =
       "INSERT INTO compras (cliente_nombre, productos, total) VALUES (?, ?, ?)";
-    db.query(
+    connection.query(
       sql,
       [datos.cliente_nombre, productosTexto, datos.total],
       (err, result) => {

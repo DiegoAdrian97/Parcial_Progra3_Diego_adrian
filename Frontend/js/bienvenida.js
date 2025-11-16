@@ -34,4 +34,7 @@ if (storedName) {
   welcomeMessage.textContent = `¡Hola de nuevo, ${storedName}!`;
   loginContainer.classList.add("hidden");
   siteContent.classList.remove("hidden");
+  setTimeout(() => {
+    window.location.href = "index.html";
+  }, 1500);
 }
