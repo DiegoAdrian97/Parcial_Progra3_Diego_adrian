@@ -80,7 +80,13 @@ export const createProduct = async (req, res) => {
       [nombre, precio, imagenValue, categoria || null]
     );
 
-    res.json({ id: result.insertId, nombre, precio, img: imagenValue, categoria });
+    res.json({
+      id: result.insertId,
+      nombre,
+      precio,
+      img: imagenValue,
+      categoria,
+    });
   } catch (error) {
     console.error("Error creando producto:", error.message);
     res.status(500).json({

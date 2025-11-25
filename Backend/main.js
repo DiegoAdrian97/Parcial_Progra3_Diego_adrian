@@ -1,9 +1,8 @@
 import express from "express";
 import cors from "cors";
-import path from "path";
-import { fileURLToPath } from "url";
 import connection from "./src/api/database/db.js";
 import { productRoutes, viewRoutes } from "./src/api/routes/index.js";
+import { imagenes_front } from "./src/api/utils/path.js";
 const app = express();
 app.use(express.json());
 
@@ -41,9 +40,7 @@ app.use("/productos", productRoutes);
 app.use("/", viewRoutes);
 
 // Servir archivos estáticos (imágenes del frontend)
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const imagenes_front = path.join(__dirname, "..", "Frontend", "assets");
+
 app.use("/assets", express.static(imagenes_front));
 
 // Rutas

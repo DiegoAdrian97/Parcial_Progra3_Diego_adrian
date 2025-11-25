@@ -27,16 +27,16 @@ export const ventasView = async (req, res) => {
     const [rows] = await connection.query(sql);
 
     // Calcular cantidad de items por venta a partir del campo 'productos'
-    const ventas = rows.map((r) => {
+    const ventas = rows.map((rows) => {
       let cantidad_items = 0;
-      if (r.productos && typeof r.productos === "string") {
+      if (rows.productos && typeof r.productos === "string") {
         const parts = r.productos
           .split(",")
           .map((p) => p.trim())
           .filter(Boolean);
         cantidad_items = parts.length;
       }
-      return { ...r, cantidad_items };
+      return { ...rows, cantidad_items };
     });
 
     res.render("admin/ventas", { title: "Ventas", ventas });
