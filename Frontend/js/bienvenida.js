@@ -13,7 +13,7 @@ loginForm.addEventListener("submit", (event) => {
     if (userName === "diego_admin") {
       localStorage.setItem("isAdmin", true);
       alert("Acceso concedido como administrador.");
-      window.location.href = "admin.html";
+      window.location.href = "http://127.0.0.1:3000/admin/dashboard";
       return;
     } else {
       localStorage.setItem("userName", userName);

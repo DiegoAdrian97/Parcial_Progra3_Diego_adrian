@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS compras (
 
 -- Insertar los productos
 INSERT INTO productos (nombre, precio, img, categoria) VALUES
-('iPhone 14', 95000, './assets/img/Iphon14.jpg', 'Celulares'),
+('iPhone 14', 95000, 'Backend/src/assets/img/Iphon14.JPG', 'Celulares'),
 ('Samsung Galaxy S23', 870000, './assets/img/galaxy-s23.jpg', 'Celulares'),
 ('Motorola Edge 40', 520000, './assets/img/moto-edge40.jpg', 'Celulares'),
 ('Xiaomi Redmi Note 13', 380000, './assets/img/redminote13.jpg', 'Celulares'),

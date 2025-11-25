@@ -36,12 +36,17 @@ async function obtenerProductos(filtro = "") {
 
   try {
     const res = await fetch("http://localhost:3000/productos");
+    if (!res.ok) throw new Error(`Error: ${res.status}`);
     const productos = await res.json();
-    productosGlobal = productos;
-    renderizarProductos(productos, filtro);
+    // Asegurar que payload es un array
+    const productosArray = Array.isArray(productos)
+      ? productos
+      : productos.payload || [];
+    productosGlobal = productosArray;
+    renderizarProductos(productosArray, filtro);
   } catch (error) {
     console.error("Error al obtener productos:", error);
-    contenedor.innerHTML = "<p>Error al cargar productos 😥</p>";
+    contenedor.innerHTML = "<p>Error al cargar productos</p>";
   }
 }
 
@@ -62,8 +67,17 @@ function renderizarProductos(lista, filtro = "") {
   filtrados.forEach((producto) => {
     const div = document.createElement("div");
     div.classList.add("card");
+    // Normalizamos: la base de datos guarda el campo `img` (nombre o ruta relativa)
+    // Si el valor ya contiene una barra '/', asumimos que es una ruta y la usamos tal cual.
+    // En otro caso, la resolvemos contra `/assets/img/` (mapeado por el backend).
+    const rawImg = producto.img || producto.imagen || "";
+    const imagenUrl = rawImg
+      ? rawImg.includes("/")
+        ? rawImg
+        : `/assets/img/${rawImg}`
+      : "https://via.placeholder.com/250";
     div.innerHTML = `
-      <img src="${producto.img}" alt="${producto.nombre}">
+      <img src="${imagenUrl}" alt="${producto.nombre}">
       <h3>${producto.nombre}</h3>
       <p>$${producto.precio}</p>
       <button class="add-to-cart" id-prod="${producto.id}">Agregar al carrito</button>
@@ -116,7 +130,9 @@ function filtrarPorCategoria() {
         categoria.toLowerCase() === "todos"
           ? productosGlobal
           : productosGlobal.filter(
-              (p) => p.categoria.toLowerCase() === categoria.toLowerCase()
+              (p) =>
+                p.categoria &&
+                p.categoria.toLowerCase() === categoria.toLowerCase()
             );
 
       titulo.textContent =
@@ -154,8 +170,9 @@ function mostrarCarrito() {
   carrito.forEach((producto, index) => {
     const div = document.createElement("div");
     div.classList.add("cart-product");
+    const imagenUrl = producto.imagen || "https://via.placeholder.com/100";
     div.innerHTML = `
-      <img src="${producto.img}" alt="${producto.nombre}">
+      <img src="${imagenUrl}" alt="${producto.nombre}">
       <div class="cart-info">
         <h3>${producto.nombre}</h3>
         <p>$${producto.precio * producto.cantidad}</p>
@@ -269,18 +286,13 @@ dropdownButtons.forEach((btn) =>
 
 const logoutButton = document.querySelector("#logout-button");
 logoutButton.addEventListener("click", () => {
-  localStorage.removeItem("userName");
-  localStorage.removeItem("isAdmin");
-  localStorage.removeItem("carrito");
+  localStorage.clear();
   window.location.href = "bienvenida.html";
 });
 
 // ====== CONFIRMAR COMPRA ======
-
-document.addEventListener("DOMContentLoaded", () => {
-  const btnFinalizar = document.getElementById("finalizar_compra");
-  btnFinalizar.addEventListener("click", finalizarCompra);
-});
+const btnFinalizar = document.getElementById("finalizar_compra");
+btnFinalizar.addEventListener("click", finalizarCompra);
 
 function finalizarCompra() {
   const userName = localStorage.getItem("userName");
@@ -304,7 +316,7 @@ function finalizarCompra() {
   })
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
+      localStorage.setItem("id_compra", data.id);
       window.location.href = "./compra_confirmada.html";
     })
     .catch((err) => console.error("Error al guardar la compra:", err));

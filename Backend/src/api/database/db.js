@@ -1,20 +1,25 @@
-import environments from "./environments.js";
-import mysql from "mysql2";
+import environments from "../config/environments.js";
+import mysql from "mysql2/promise";
 
 const { db } = environments;
 
-const connection = mysql.createConnection({
-  host: db.host,
-  user: db.user,
-  password: db.password,
-  database: db.name,
-});
-connection.connect((err) => {
-  if (err) {
-    console.error("Error al conectar con MySQL:", err);
-    return;
+let connection;
+
+async function initConnection() {
+  try {
+    connection = await mysql.createConnection({
+      host: db.host,
+      user: db.user,
+      password: db.password || "",
+      database: db.name,
+    });
+    console.log("Conectado a la base de datos MySQL ✅");
+  } catch (err) {
+    console.error("Error al conectar con MySQL:", err.message);
+    throw err;
   }
-  console.log("Conectado a la base de datos MySQL ✅");
-});
+}
+
+await initConnection();
 
 export default connection;

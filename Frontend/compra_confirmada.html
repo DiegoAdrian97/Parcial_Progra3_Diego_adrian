@@ -4,16 +4,21 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Compra Confirmada | Electronics Store</title>
+    <link rel="icon" type="image/png" href="./assets/img/icono_pc.ico" />
+    <link rel="stylesheet" href="./assets/css/index.css" />
     <link rel="stylesheet" href="./assets/css/compra_confirmada.css" />
   </head>
-  <body>
-    <div class="confirmacion-container">
-      <h1 class="empresa">Electronics Store</h1>
 
+  <body>
+    <div class="confirmacion-container animar">
+      <div class="icono-exito">✔</div>
+
+      <h1 class="empresa">¡Gracias por tu compra! 🎉</h1>
       <div class="mensaje">
-        <h2>¡Compra confirmada con éxito!</h2>
-        <p>Gracias por tu compra, <span id="nombre-usuario"></span>.</p>
-        <p>Estos son los detalles de tu pedido:</p>
+        <p class="subtitulo">
+          Tu pedido fue procesado con éxito, <span id="nombre-usuario"></span>.
+        </p>
+        <p>Estos son los detalles de tu compra:</p>
       </div>
 
       <div class="detalles-compra">
@@ -32,10 +37,16 @@
         <div class="total">
           <p><strong>Total:</strong> <span id="total-final"></span></p>
           <p><strong>Fecha:</strong> <span id="fecha-hoy"></span></p>
+          <p><strong>N° de Orden:</strong> <span id="nro-orden"></span></p>
         </div>
       </div>
 
-      <button id="volver" class="volver">Volver al inicio</button>
+      <div class="botones-final">
+        <button id="volver" class="volver">Volver al inicio</button>
+        <button id="descargar-pdf" class="descargar-pdf">
+          Descargar Ticket
+        </button>
+      </div>
     </div>
 
     <script src="./js/compra_confirmada.js"></script>

@@ -1,0 +1,6 @@
+{
+  "scripts": {
+    "dev": "nodemon ./src/main.js",
+    "rundb": "mysql -u root -p < ./src/api/database/db_init.sql"
+  }
+}
