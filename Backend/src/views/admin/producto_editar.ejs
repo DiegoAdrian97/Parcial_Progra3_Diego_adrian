@@ -1,64 +1,254 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8" />
-    <title>Editar Producto</title>
-    <link rel="stylesheet" href="/admin_dark.css" />
+    <!DOCTYPE html>
+    <html lang="es">
+      <head>
+        <meta charset="utf-8" />
+        <title>Editar Producto | Electronics Store</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
+          rel="stylesheet"
+        />
+        <style>
+          :root {
+            --bg-gradient: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --accent: #b388ff;
+            --accent-strong: #7b2ff7;
+            --accent-strong-2: #f107a3;
+            --danger: #ff3b3b;
+            --danger-2: #ff0077;
+            --text-main: #f1f1f1;
+          }
 
-    <style>
-      body {
-        font-family: Arial;
-        padding: 20px;
-      }
-      input {
-        width: 100%;
-        padding: 10px;
-        margin-top: 10px;
-      }
-      button {
-        margin-top: 10px;
-        padding: 10px;
-        width: 100%;
-        background: #333;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-      }
-    </style>
+          * {
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+          }
+          body {
+            background: var(--bg-gradient);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+          }
+
+          .sidebar {
+            width: 260px;
+            background: rgba(10, 10, 25, 0.98);
+            border-right: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 1.5rem 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+          }
+          .sidebar-logo {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--accent);
+          }
+          .sidebar-subtitle {
+            font-size: 0.85rem;
+            opacity: 0.75;
+          }
+          .sidebar-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+            margin-top: 1rem;
+          }
+          .sidebar-link {
+            padding: 0.7rem 0.9rem;
+            border-radius: 10px;
+            text-decoration: none;
+            color: #e0dcff;
+            font-size: 0.93rem;
+          }
+          .sidebar-link.active {
+            background: linear-gradient(
+              135deg,
+              var(--accent-strong),
+              var(--accent-strong-2)
+            );
+            color: #fff;
+          }
+
+          .main {
+            flex: 1;
+            padding: 2rem 3rem;
+          }
+          .main-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.6rem;
+          }
+          .main-header-title {
+            font-size: 1.7rem;
+            text-shadow: 0 0 12px var(--accent);
+          }
+
+          .card {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+          }
+          form.grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+          }
+          form .full {
+            grid-column: 1 / -1;
+          }
+          label {
+            display: block;
+            font-size: 0.9rem;
+            margin-bottom: 0.4rem;
+            opacity: 0.9;
+          }
+          input[type="text"],
+          input[type="number"] {
+            width: 100%;
+            padding: 10px 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            background: rgba(0, 0, 0, 0.15);
+            color: var(--text-main);
+          }
+          .actions {
+            display: flex;
+            gap: 0.6rem;
+            margin-top: 1rem;
+          }
+          .btn-primary {
+            background: linear-gradient(
+              135deg,
+              var(--accent-strong),
+              var(--accent-strong-2)
+            );
+            color: #fff;
+            padding: 0.6rem 1rem;
+            border-radius: 999px;
+            border: none;
+            cursor: pointer;
+          }
+          .btn-secondary {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: #fff;
+            padding: 0.6rem 1rem;
+            border-radius: 999px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+          }
+
+          @media (max-width: 900px) {
+            .main {
+              padding: 1.2rem;
+            }
+            form.grid {
+              grid-template-columns: 1fr;
+            }
+          }
+        </style>
+      </head>
+      <body>
+        <aside class="sidebar">
+          <div>
+            <div class="sidebar-logo">Electronics Store</div>
+            <div class="sidebar-subtitle">Panel de administración</div>
+            <nav class="sidebar-nav">
+              <a href="/admin/dashboard" class="sidebar-link">📊 Dashboard</a>
+              <a href="/admin/productos" class="sidebar-link active"
+                >📦 Productos</a
+              >
+              <a href="/admin/ventas" class="sidebar-link">🧾 Ventas</a>
+            </nav>
+          </div>
+          <div style="margin-top: auto">
+            <a class="btn-secondary" href="/">Volver al sitio</a>
+          </div>
+        </aside>
+
+        <main class="main">
+          <header class="main-header">
+            <div>
+              <h1 class="main-header-title">Editar Producto</h1>
+              <p style="opacity: 0.8; margin-top: 6px">
+                Modificá los datos del producto y guardá los cambios.
+              </p>
+            </div>
+          </header>
+
+          <section class="card">
+            <form
+              class="grid"
+              method="POST"
+              action="/admin/productos/editar/<%= producto.id %>"
+            >
+              <div>
+                <label for="nombre">Nombre</label>
+                <input
+                  id="nombre"
+                  type="text"
+                  name="nombre"
+                  value="<%= producto.nombre %>"
+                  required
+                />
+              </div>
+
+              <div>
+                <label for="precio">Precio</label>
+                <input
+                  id="precio"
+                  type="number"
+                  name="precio"
+                  value="<%= producto.precio %>"
+                  required
+                />
+              </div>
+
+              <div>
+                <label for="categoria">Categoría</label>
+                <input
+                  id="categoria"
+                  type="text"
+                  name="categoria"
+                  value="<%= producto.categoria %>"
+                  required
+                />
+              </div>
+
+              <div>
+                <label for="img">Imagen (ruta o nombre de archivo)</label>
+                <input
+                  id="img"
+                  type="text"
+                  name="img"
+                  value="<%= producto.img %>"
+                />
+              </div>
+
+              <div class="full actions">
+                <button type="submit" class="btn-primary">
+                  Guardar Cambios
+                </button>
+                <a href="/admin/productos" class="btn-secondary">Cancelar</a>
+              </div>
+            </form>
+          </section>
+        </main>
+
+      </body>
+    </html>
   </head>
-
-  <body>
-    <button id="dark-toggle" class="dark-btn">🌙</button>
-
-    <h1>Editar Producto</h1>
-
-    <form method="POST" action="/admin/productos/editar/<%= producto.id %>">
-      <input
-        type="text"
-        name="nombre"
-        value="<%= producto.nombre %>"
-        required
-      />
-      <input
-        type="number"
-        name="precio"
-        value="<%= producto.precio %>"
-        required
-      />
-      <input
-        type="text"
-        name="categoria"
-        value="<%= producto.categoria %>"
-        required
-      />
-      <input type="text" name="img" value="<%= producto.img %>" required />
-
-      <button type="submit">Guardar Cambios</button>
-    </form>
-
-    <a href="/admin/productos">Volver</a>
-
-    <script src="/admin_darkmode.js"></script>
-  </body>
 </html>

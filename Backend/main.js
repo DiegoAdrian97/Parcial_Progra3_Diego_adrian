@@ -5,6 +5,7 @@ import { productRoutes, viewRoutes } from "./src/api/routes/index.js";
 import { imagenes_front } from "./src/api/utils/path.js";
 const app = express();
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Configurar EJS como motor de vistas
 app.set("view engine", "ejs");
@@ -40,7 +41,6 @@ app.use("/productos", productRoutes);
 app.use("/", viewRoutes);
 
 // Servir archivos estáticos (imágenes del frontend)
-
 app.use("/assets", express.static(imagenes_front));
 
 // Rutas

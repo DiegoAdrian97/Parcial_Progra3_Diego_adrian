@@ -1,37 +1,249 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <title>Eliminar Producto</title>
-  <link rel="stylesheet" href="/admin_dark.css">
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <title>Eliminar Producto | Electronics Store</title>
+    <style>
+      :root {
+        --bg-gradient: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+        --card-bg: rgba(255, 255, 255, 0.05);
+        --accent: #b388ff;
+        --accent-strong: #7b2ff7;
+        --accent-strong-2: #f107a3;
+        --danger: #ff3b3b;
+        --danger-2: #ff0077;
+        --text-main: #f1f1f1;
+      }
 
-  <style>
-    body { font-family: Arial; padding: 20px; }
-    .danger { background:#c62828; color:white; padding:12px; border-radius:5px; margin-top:20px; }
-    button { padding:10px; background:#b71c1c; color:white; border:none; border-radius:5px; cursor:pointer; width:200px; margin-top:10px; }
-  </style>
-</head>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
 
-<body>
+      body {
+        background: var(--bg-gradient);
+        color: var(--text-main);
+        min-height: 100vh;
+        display: flex;
+      }
 
-<button id="dark-toggle" class="dark-btn">🌙</button>
+      /* SIDEBAR */
+      .sidebar {
+        width: 260px;
+        background: rgba(10, 10, 25, 0.98);
+        border-right: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 4px 0 20px rgba(0, 0, 0, 0.4);
+        padding: 1.5rem 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        position: sticky;
+        top: 0;
+        height: 100vh;
+      }
 
-<h1>Eliminar Producto</h1>
+      .sidebar-logo {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: var(--accent);
+        text-shadow: 0 0 15px var(--accent);
+        margin-bottom: 0.5rem;
+      }
 
-<p>¿Estás seguro que querés eliminar este producto?</p>
+      .sidebar-subtitle {
+        font-size: 0.85rem;
+        opacity: 0.75;
+      }
 
-<div class="danger">
-  <strong><%= producto.nombre %></strong><br>
-  Precio: $<%= producto.precio %><br>
-  Categoría: <%= producto.categoria %>
-</div>
+      .sidebar-nav {
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+        margin-top: 1rem;
+      }
 
-<form method="POST" action="/admin/productos/eliminar/<%= producto.id %>">
-  <button type="submit">Eliminar definitivamente</button>
-</form>
+      .sidebar-link {
+        display: block;
+        padding: 0.7rem 0.9rem;
+        border-radius: 10px;
+        text-decoration: none;
+        color: #e0dcff;
+        font-size: 0.93rem;
+        background: transparent;
+        border: 1px solid transparent;
+        transition: all 0.25s ease;
+      }
 
-<a href="/admin/productos">Cancelar</a>
+      .sidebar-link:hover {
+        background: rgba(179, 136, 255, 0.08);
+        border-color: rgba(179, 136, 255, 0.5);
+        box-shadow: 0 0 12px rgba(179, 136, 255, 0.4);
+        transform: translateX(3px);
+      }
 
-<script src="/admin_darkmode.js"></script>
+      .sidebar-link.active {
+        background: linear-gradient(
+          135deg,
+          var(--accent-strong),
+          var(--accent-strong-2)
+        );
+        box-shadow: 0 0 15px rgba(179, 136, 255, 0.7);
+        color: #fff;
+      }
+
+      .sidebar-footer {
+        margin-top: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+      }
+
+      .btn-logout {
+        background: linear-gradient(90deg, var(--danger), var(--danger-2));
+        border-radius: 10px;
+        padding: 0.7rem 0.9rem;
+        border: none;
+        color: #fff;
+        text-align: center;
+        text-decoration: none;
+        font-weight: 500;
+        cursor: pointer;
+        box-shadow: 0 0 15px rgba(255, 0, 77, 0.5);
+        transition: all 0.25s ease;
+      }
+
+      .btn-store {
+        display: block;
+        padding: 0.6rem 0.9rem;
+        border-radius: 10px;
+        text-align: center;
+        text-decoration: none;
+        color: #fff;
+        border: 1px solid rgba(179, 136, 255, 0.6);
+        background: rgba(179, 136, 255, 0.12);
+        box-shadow: 0 0 10px rgba(179, 136, 255, 0.4);
+        font-size: 0.9rem;
+        transition: all 0.25s ease;
+      }
+
+      .btn-store:hover {
+        background: rgba(179, 136, 255, 0.25);
+        transform: translateY(-1px);
+      }
+
+      /* MAIN AREA */
+      .main {
+        flex: 1;
+        padding: 2rem 3rem;
+      }
+
+      .main-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+      }
+
+      .main-header-title {
+        font-size: 1.8rem;
+        text-shadow: 0 0 12px var(--accent);
+      }
+
+      .main-header-subtitle {
+        font-size: 0.95rem;
+        opacity: 0.85;
+      }
+
+      .chip {
+        padding: 0.4rem 0.8rem;
+        border-radius: 999px;
+        font-size: 0.8rem;
+        background: rgba(0, 0, 0, 0.25);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+      }
+
+      /* CARD */
+      .card {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 15px;
+        padding: 1.5rem;
+        box-shadow: 0 0 18px rgba(0, 0, 0, 0.35);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .danger-box {
+        background: rgba(255, 0, 0, 0.08);
+        border-radius: 10px;
+        padding: 12px;
+        border: 1px solid rgba(255, 0, 0, 0.12);
+        color: #ffdede;
+      }
+
+      .details { margin-top: 8px; color: rgba(255,255,255,0.9); }
+
+      .actions { display:flex; gap:0.6rem; margin-top:12px; }
+
+      .btn-delete { background: linear-gradient(90deg,var(--danger),var(--danger-2)); color:#fff; padding:0.6rem 1rem; border-radius:999px; border:none; cursor:pointer; }
+      .btn-cancel { background: transparent; border:1px solid rgba(179,136,255,0.25); color:#fff; padding:0.6rem 1rem; border-radius:999px; text-decoration:none; }
+
+      @media (max-width: 900px) {
+        body { flex-direction: column; }
+        .sidebar { flex-direction: row; align-items: center; height: auto; width: 100%; padding: 1rem; position: static; }
+        .sidebar-nav { flex-direction: row; flex-wrap: wrap; }
+        .sidebar-footer { flex-direction: row; margin-top: 0; margin-left: auto; }
+        .main { padding: 1.5rem 1.2rem; }
+      }
+    </style>
+  </head>
+  <body>
+    <aside class="sidebar">
+      <div>
+        <div class="sidebar-logo">Electronics Store</div>
+        <div class="sidebar-subtitle">Panel de administración</div>
+
+        <nav class="sidebar-nav">
+          <a href="/admin/dashboard" class="sidebar-link">📊 Dashboard</a>
+          <a href="/admin/productos" class="sidebar-link active">📦 Productos</a>
+          <a href="/admin/ventas" class="sidebar-link">🧾 Ventas</a>
+        </nav>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header>
+        <h1 class="main-header-title">Eliminar Producto</h1>
+        <p style="margin-top:6px; color:#555;">Confirmá la eliminación del producto seleccionado.</p>
+      </header>
+
+      <section class="card" style="margin-top:12px;">
+        <% if (typeof producto !== 'undefined' && producto) { %>
+          <div class="danger-box">
+            <strong style="font-size:1.05rem;"><%= producto.nombre %></strong>
+            <div class="details">Precio: $<%= producto.precio %> — Categoría: <%= producto.categoria %></div>
+          </div>
+
+          <form method="POST" action="/admin/productos/eliminar/<%= producto.id %>" style="margin-top:12px;">
+            <div class="actions">
+              <button type="submit" class="btn-delete">Eliminar definitivamente</button>
+              <a href="/admin/productos" class="btn-cancel">Cancelar</a>
+            </div>
+          </form>
+        <% } else { %>
+          <div style="padding:12px;">
+            <p>No se encontró el producto que intentás eliminar.</p>
+            <a href="/admin/productos" class="btn-cancel" style="margin-top:8px; display:inline-block;">Volver a productos</a>
+          </div>
+        <% } %>
+      </section>
+    </main>
+  </body>
+</html>
+
+
 </body>
 </html>
