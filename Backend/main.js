@@ -3,6 +3,7 @@ import cors from "cors";
 import connection from "./src/api/database/db.js";
 import { productRoutes, viewRoutes } from "./src/api/routes/index.js";
 import { imagenes_front } from "./src/api/utils/path.js";
+import CompraModels from "./src/api/models/compra.models.js";
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -69,13 +70,13 @@ app.post("/compras", async (req, res) => {
     const productosTexto = productosArray
       .map((p) => `${p.nombre}: ${p.cantidad}`)
       .join(", ");
-    const sql =
-      "INSERT INTO compras (cliente_nombre, productos, total) VALUES (?, ?, ?)";
-    const [result] = await connection.query(sql, [
+
+    const [result] = await CompraModels.insertCompra(
       datos.cliente_nombre,
       productosTexto,
-      datos.total,
-    ]);
+      datos.total
+    );
+
     res.json({
       message: "Compra guardada con éxito",
       id: result.insertId,
