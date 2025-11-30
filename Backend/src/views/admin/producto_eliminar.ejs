@@ -5,16 +5,7 @@
     <meta charset="utf-8" />
     <title>Eliminar Producto | Electronics Store</title>
     <style>
-      :root {
-        --bg-gradient: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-        --card-bg: rgba(255, 255, 255, 0.05);
-        --accent: #b388ff;
-        --accent-strong: #7b2ff7;
-        --accent-strong-2: #f107a3;
-        --danger: #ff3b3b;
-        --danger-2: #ff0077;
-        --text-main: #f1f1f1;
-      }
+      
 
       * {
         margin: 0;
@@ -24,13 +15,12 @@
       }
 
       body {
-        background: var(--bg-gradient);
-        color: var(--text-main);
+        background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+        color: #f1f1f1;
         min-height: 100vh;
         display: flex;
       }
 
-      /* SIDEBAR */
       .sidebar {
         width: 260px;
         background: rgba(10, 10, 25, 0.98);
@@ -48,8 +38,8 @@
       .sidebar-logo {
         font-size: 1.5rem;
         font-weight: 600;
-        color: var(--accent);
-        text-shadow: 0 0 15px var(--accent);
+        color: #b388ff;
+        text-shadow: 0 0 15px #b388ff;
         margin-bottom: 0.5rem;
       }
 
@@ -87,8 +77,8 @@
       .sidebar-link.active {
         background: linear-gradient(
           135deg,
-          var(--accent-strong),
-          var(--accent-strong-2)
+          #7b2ff7,
+          #f107a3
         );
         box-shadow: 0 0 15px rgba(179, 136, 255, 0.7);
         color: #fff;
@@ -102,7 +92,7 @@
       }
 
       .btn-logout {
-        background: linear-gradient(90deg, var(--danger), var(--danger-2));
+        background: linear-gradient(90deg, ff3b3b, #ff0077);
         border-radius: 10px;
         padding: 0.7rem 0.9rem;
         border: none;
@@ -134,7 +124,6 @@
         transform: translateY(-1px);
       }
 
-      /* MAIN AREA */
       .main {
         flex: 1;
         padding: 2rem 3rem;
@@ -149,7 +138,7 @@
 
       .main-header-title {
         font-size: 1.8rem;
-        text-shadow: 0 0 12px var(--accent);
+        text-shadow: 0 0 12px #b388ff;
       }
 
       .main-header-subtitle {
@@ -164,8 +153,6 @@
         background: rgba(0, 0, 0, 0.25);
         border: 1px solid rgba(255, 255, 255, 0.15);
       }
-
-      /* CARD */
       .card {
         background: rgba(255, 255, 255, 0.05);
         border-radius: 15px;
@@ -188,7 +175,7 @@
 
       .actions { display:flex; gap:0.6rem; margin-top:12px; }
 
-      .btn-delete { background: linear-gradient(90deg,var(--danger),var(--danger-2)); color:#fff; padding:0.6rem 1rem; border-radius:999px; border:none; cursor:pointer; }
+      .btn-delete { background: linear-gradient(90deg,ff3b3b,#ff0077); color:#fff; padding:0.6rem 1rem; border-radius:999px; border:none; cursor:pointer; }
       .btn-cancel { background: transparent; border:1px solid rgba(179,136,255,0.25); color:#fff; padding:0.6rem 1rem; border-radius:999px; text-decoration:none; }
 
       @media (max-width: 900px) {

@@ -30,11 +30,11 @@ export const ventasView = async (req, res) => {
     const ventas = rows.map((rows) => {
       let cantidad_items = 0;
       if (rows.productos && typeof rows.productos === "string") {
-        const parts = rows.productos
+        const partes = rows.productos
           .split(",")
           .map((p) => p.trim())
           .filter(Boolean);
-        cantidad_items = parts.length;
+        cantidad_items = partes.length;
       }
       return { ...rows, cantidad_items };
     });

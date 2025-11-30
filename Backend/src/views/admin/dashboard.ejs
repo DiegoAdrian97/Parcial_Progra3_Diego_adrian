@@ -10,17 +10,6 @@
       rel="stylesheet"
     />
     <style>
-      :root {
-        --bg-gradient: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-        --card-bg: rgba(255, 255, 255, 0.05);
-        --accent: #b388ff;
-        --accent-strong: #7b2ff7;
-        --accent-strong-2: #f107a3;
-        --danger: #ff3b3b;
-        --danger-2: #ff0077;
-        --text-main: #f1f1f1;
-      }
-
       * {
         margin: 0;
         padding: 0;
@@ -29,8 +18,8 @@
       }
 
       body {
-        background: var(--bg-gradient);
-        color: var(--text-main);
+        background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+        color: #f1f1f1;
         min-height: 100vh;
         display: flex;
       }
@@ -53,8 +42,8 @@
       .sidebar-logo {
         font-size: 1.5rem;
         font-weight: 600;
-        color: var(--accent);
-        text-shadow: 0 0 15px var(--accent);
+        color: #b388ff;
+        text-shadow: 0 0 15px #b388ff;
         margin-bottom: 0.5rem;
       }
 
@@ -90,11 +79,7 @@
       }
 
       .sidebar-link.active {
-        background: linear-gradient(
-          135deg,
-          var(--accent-strong),
-          var(--accent-strong-2)
-        );
+        background: linear-gradient(135deg, #7b2ff7, #f107a3);
         box-shadow: 0 0 15px rgba(179, 136, 255, 0.7);
         color: #fff;
       }
@@ -107,7 +92,7 @@
       }
 
       .btn-logout {
-        background: linear-gradient(90deg, var(--danger), var(--danger-2));
+        background: linear-gradient(90deg, #ff3b3b, #ff0077);
         border-radius: 10px;
         padding: 0.7rem 0.9rem;
         border: none;
@@ -159,7 +144,7 @@
 
       .main-header-title {
         font-size: 1.8rem;
-        text-shadow: 0 0 12px var(--accent);
+        text-shadow: 0 0 12px #b388ff;
       }
 
       .main-header-subtitle {
@@ -200,11 +185,7 @@
         height: 140%;
         top: -50%;
         right: -60%;
-        background: radial-gradient(
-          circle at top,
-          rgba(179, 136, 255, 0.25),
-          transparent 55%
-        );
+
         opacity: 0.7;
         pointer-events: none;
       }
@@ -218,7 +199,7 @@
       .card-value {
         font-size: 1.7rem;
         font-weight: 600;
-        color: var(--accent);
+        color: #b388ff;
         text-shadow: 0 0 10px rgba(179, 136, 255, 0.7);
       }
 
@@ -249,11 +230,7 @@
       }
 
       .btn-primary {
-        background: linear-gradient(
-          135deg,
-          var(--accent-strong),
-          var(--accent-strong-2)
-        );
+        background: linear-gradient(135deg, #7b2ff7, #f107a3);
         color: #fff;
         box-shadow: 0 0 15px rgba(179, 136, 255, 0.7);
       }

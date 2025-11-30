@@ -10,16 +10,7 @@
       rel="stylesheet"
     />
     <style>
-      :root {
-        --bg-gradient: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-        --accent: #b388ff;
-        --accent-strong: #7b2ff7;
-        --accent-strong-2: #f107a3;
-        --danger: #ff3b3b;
-        --danger-2: #ff0077;
-        --text-main: #f1f1f1;
-      }
-
+     
       * {
         margin: 0;
         padding: 0;
@@ -28,8 +19,8 @@
       }
 
       body {
-        background: var(--bg-gradient);
-        color: var(--text-main);
+        background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+        color: #f1f1f1;
         min-height: 100vh;
         display: flex;
       }
@@ -50,9 +41,9 @@
 
       .sidebar-logo {
         font-size: 1.5rem;
-        font-weight: 600;
-        color: var(--accent);
-        text-shadow: 0 0 15px var(--accent);
+         font-weight: 600;
+        color: #b388ff;
+        text-shadow: 0 0 15px #b388ff;
         margin-bottom: 0.5rem;
       }
 
@@ -88,11 +79,7 @@
       }
 
       .sidebar-link.active {
-        background: linear-gradient(
-          135deg,
-          var(--accent-strong),
-          var(--accent-strong-2)
-        );
+       
         box-shadow: 0 0 15px rgba(179, 136, 255, 0.7);
         color: #fff;
       }
@@ -105,7 +92,7 @@
       }
 
       .btn-logout {
-        background: linear-gradient(90deg, var(--danger), var(--danger-2));
+     
         border-radius: 10px;
         padding: 0.7rem 0.9rem;
         border: none;
@@ -156,7 +143,7 @@
 
       .main-header-title {
         font-size: 1.7rem;
-        text-shadow: 0 0 12px var(--accent);
+        text-shadow: 0 0 12px #b388ff;
       }
 
       .chip {
