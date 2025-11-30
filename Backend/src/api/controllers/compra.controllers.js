@@ -1,7 +1,7 @@
 /*===============================
     Controladores compra
 ===============================*/
-import CompraModels from "../models/compra.models";
+import CompraModels from "../models/compra.models.js";
 
 const selectAllCompras = async (req, res) => {
   try {
@@ -46,4 +46,42 @@ const selectCompraById = async (req, res) => {
     });
   }
 };
-export { selectAllCompras, selectCompraById };
+
+const crearCompra = async (req, res) => {
+  try {
+    const datos = req.body;
+
+    if (!datos || !datos.cliente_nombre || !datos.productos || !datos.total) {
+      return res.status(400).send("Faltan datos de la compra");
+    }
+
+    let productosArray = datos.productos;
+
+    if (typeof productosArray === "string") {
+      try {
+        productosArray = JSON.parse(productosArray);
+      } catch (err) {
+        return res.status(400).send("Formato de productos inválido");
+      }
+    }
+
+    const productosTexto = productosArray
+      .map((p) => `${p.nombre}: ${p.cantidad}`)
+      .join(", ");
+
+    const [result] = await CompraModels.insertCompra(
+      datos.cliente_nombre,
+      productosTexto,
+      datos.total
+    );
+
+    return res.json({
+      message: "Compra guardada con éxito",
+      id: result.insertId,
+    });
+  } catch (error) {
+    console.error("Error creando compra:", error);
+    res.status(500).send("Error interno del servidor");
+  }
+};
+export { selectAllCompras, selectCompraById, crearCompra };
