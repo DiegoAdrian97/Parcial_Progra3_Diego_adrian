@@ -5,55 +5,284 @@
     <title>Nuevo Producto</title>
 
     <style>
+      * {
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+
       body {
-        font-family: Arial;
-        padding: 20px;
+        background: #302b63;
+        color: #f1f1f1;
+        min-height: 100vh;
+        display: flex;
       }
-      form {
-        max-width: 400px;
+
+      /* MAIN */
+      .main {
+        flex: 1;
+        padding: 2rem 3rem;
       }
-      input {
+
+      .main-header {
+        margin-bottom: 1.6rem;
+      }
+
+      .main-header-title {
+        font-size: 1.7rem;
+        text-shadow: 0 0 12px #b388ff;
+        margin-bottom: 0.4rem;
+      }
+
+      .main-header-subtitle {
+        font-size: 0.9rem;
+        opacity: 0.85;
+      }
+
+      /* CARD CONTENEDORA */
+      .card {
+        background: rgba(255, 255, 255, 0.05);
+        padding: 1.5rem;
+        border-radius: 12px;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+        border: 1px solid rgba(255, 255, 255, 0.04);
+        max-width: 600px;
+      }
+
+      /* FORM GRID */
+      form.grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+      }
+
+      .full {
+        grid-column: 1 / -1;
+      }
+
+      label {
+        display: block;
+        font-size: 0.9rem;
+        margin-bottom: 0.4rem;
+        opacity: 0.9;
+      }
+
+      input[type="text"],
+      input[type="number"] {
         width: 100%;
-        padding: 10px;
-        margin-top: 10px;
+        padding: 10px 12px;
+        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        background: rgba(0, 0, 0, 0.15);
+        color: #f1f1f1;
       }
-      button {
-        margin-top: 10px;
-        padding: 10px;
-        width: 100%;
-        background: #333;
-        color: white;
+      .sidebar {
+        width: 260px;
+        background: rgba(10, 10, 25, 0.98);
+        border-right: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 4px 0 20px rgba(0, 0, 0, 0.4);
+        padding: 1.5rem 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        position: sticky;
+        top: 0;
+        height: 100vh;
+      }
+
+      .sidebar-logo {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #b388ff;
+        text-shadow: 0 0 15px #b388ff;
+        margin-bottom: 0.5rem;
+      }
+
+      .sidebar-subtitle {
+        font-size: 0.85rem;
+        opacity: 0.75;
+      }
+
+      .sidebar-nav {
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+        margin-top: 1rem;
+      }
+
+      .sidebar-link {
+        display: block;
+        padding: 0.7rem 0.9rem;
+        border-radius: 10px;
+        text-decoration: none;
+        color: #e0dcff;
+        font-size: 0.93rem;
+        background: transparent;
+        border: 1px solid transparent;
+        transition: all 0.25s ease;
+      }
+
+      .sidebar-link:hover {
+        background: rgba(179, 136, 255, 0.08);
+        border-color: rgba(179, 136, 255, 0.5);
+        box-shadow: 0 0 12px rgba(179, 136, 255, 0.4);
+        transform: translateX(3px);
+      }
+
+      .sidebar-link.active {
+        background: linear-gradient(135deg, #7b2ff7, #f107a3);
+        box-shadow: 0 0 15px rgba(179, 136, 255, 0.7);
+        color: #fff;
+      }
+
+      .sidebar-footer {
+        margin-top: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+      }
+
+      .btn-logout {
+        background: linear-gradient(90deg, #ff3b3b, #ff0077);
+        border-radius: 10px;
+        padding: 0.7rem 0.9rem;
         border: none;
-        border-radius: 5px;
+        color: #fff;
+        text-align: center;
+        text-decoration: none;
+        font-weight: 500;
         cursor: pointer;
+        box-shadow: 0 0 15px rgba(255, 0, 77, 0.5);
+        transition: all 0.25s ease;
       }
-      a {
-        display: inline-block;
-        margin-top: 15px;
+
+      .btn-logout:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 0 25px rgba(255, 0, 77, 0.9);
+      }
+
+      .btn-store {
+        display: block;
+        padding: 0.6rem 0.9rem;
+        border-radius: 10px;
+        text-align: center;
+        text-decoration: none;
+        color: #fff;
+        border: 1px solid rgba(179, 136, 255, 0.6);
+        background: rgba(179, 136, 255, 0.12);
+        box-shadow: 0 0 10px rgba(179, 136, 255, 0.4);
+        font-size: 0.9rem;
+        transition: all 0.25s ease;
+      }
+
+      .btn-store:hover {
+        background: rgba(179, 136, 255, 0.25);
+        transform: translateY(-1px);
+      }
+
+      /* BOTONES */
+      .actions {
+        display: flex;
+        gap: 0.7rem;
+        margin-top: 1.2rem;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, #7b2ff7, #f107a3);
+        color: #fff;
+        padding: 0.6rem 1rem;
+        border-radius: 999px;
+        border: none;
+        cursor: pointer;
+        transition: 0.25s ease;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 0 18px rgba(179, 136, 255, 0.7);
+      }
+
+      .btn-secondary {
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        color: #fff;
+        padding: 0.6rem 1rem;
+        border-radius: 999px;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        transition: 0.25s ease;
+      }
+
+      .btn-secondary:hover {
+        background: rgba(255, 255, 255, 0.1);
+        transform: translateY(-1px);
+      }
+
+      @media (max-width: 900px) {
+        .main {
+          padding: 1.2rem;
+        }
+        form.grid {
+          grid-template-columns: 1fr;
+        }
       }
     </style>
   </head>
 
   <body>
-    <h1>Crear Nuevo Producto</h1>
+    <div class="sidebar">
+      <div>
+        <div class="sidebar-logo">Cerámica Admin</div>
+        <div class="sidebar-subtitle">Panel de control</div>
+      </div>
 
-    <form action="/admin/productos/nuevo" method="POST">
-      <input type="text" name="nombre" placeholder="Nombre" required />
-      <input
-        type="number"
-        name="precio"
-        step="0.01"
-        placeholder="Precio"
-        required
-      />
-      <input type="text" name="categoria" placeholder="Categoría" required />
-      <input type="text" name="img" placeholder="Ruta de imagen" required />
+      <nav class="sidebar-nav">
+        <a href="/admin/dashboard" class="sidebar-link">📊 Dashboard</a>
+        <a href="/admin/productos" class="sidebar-link">📦 Productos</a>
+        <a href="/admin/crear" class="sidebar-link active">➕ Nuevo Producto</a>
+        <a href="/admin/ventas" class="sidebar-link">💸 Ventas</a>
+      </nav>
 
-      <button type="submit">Guardar</button>
-    </form>
+      <div class="sidebar-footer">
+        <a href="/" class="btn-store">🛍️ Ir a la tienda</a>
+        <a href="/logout" class="btn-logout">Cerrar sesión</a>
+      </div>
+    </div>
 
-    <a href="/admin/productos">Volver</a>
+    <div class="main">
+      <div class="main-header">
+        <h1 class="main-header-title">Crear Nuevo Producto</h1>
+      </div>
 
-    
+      <div class="card">
+        <form action="/admin/producto_nuevo" method="POST" class="grid">
+          <div class="full">
+            <label>Nombre</label>
+            <input type="text" name="nombre" required />
+          </div>
+
+          <div>
+            <label>Precio</label>
+            <input type="number" name="precio" step="0.01" required />
+          </div>
+
+          <div>
+            <label>Categoría</label>
+            <input type="text" name="categoria" />
+          </div>
+
+          <div class="full">
+            <label>Imagen (URL)</label>
+            <input type="text" name="img" />
+          </div>
+
+          <div class="actions full">
+            <button type="submit" class="btn-primary">Guardar</button>
+
+            <a href="/admin/productos" class="btn-secondary">Volver</a>
+          </div>
+        </form>
+      </div>
+    </div>
   </body>
 </html>

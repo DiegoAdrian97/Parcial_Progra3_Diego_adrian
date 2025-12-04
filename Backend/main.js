@@ -1,13 +1,14 @@
 import express from "express";
 import cors from "cors";
+
+import path from "path";
+import { fileURLToPath } from "url";
+
 import {
   compraRoutes,
   productRoutes,
   viewRoutes,
 } from "./src/api/routes/index.js";
-import { imagenes_front } from "./src/api/utils/path.js";
-
-
 
 const app = express();
 app.use(express.json());
@@ -18,7 +19,11 @@ app.set("view engine", "ejs");
 app.set("views", "./src/views");
 
 // Lista de orígenes permitidos
-const whiteList = ["http://localhost:5500", "http://127.0.0.1:5501"];
+const whiteList = [
+  "http://localhost:5500",
+  "http://127.0.0.1:5501",
+  "http://127.0.0.1:3000",
+];
 
 // Configuración de CORS
 const corsOptions = {
@@ -46,7 +51,9 @@ app.use("/", viewRoutes);
 app.use("/", compraRoutes);
 
 // Servir archivos estáticos (imágenes del frontend)
-app.use("/assets", express.static(imagenes_front));
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+app.use(express.static(path.join(__dirname, "src", "public")));
 
 // Iniciar servidor
 app.listen(3000, () => {

@@ -10,6 +10,7 @@ import {
   deleteProductAction,
 } from "../controllers/view.controllers.js";
 import ProductModels from "../controllers/../models/product.models.js";
+import { createProduct } from "../controllers/product.controllers.js";
 
 const router = Router();
 
@@ -26,7 +27,7 @@ router.get("/consultar", (req, res) => {
   });
 });
 
-router.get("/crear", createProductView);
+router.get("/admin/crear", createProductView);
 
 router.get("/modificar", (req, res) => {
   res.render("admin/producto_editar", {
@@ -48,6 +49,8 @@ router.get("/admin/dashboard", (req, res) => {
 router.get("/admin/productos", productsView);
 
 router.get("/admin/productos/editar/:id", editProductView);
+
+router.post("/admin/productos_nuevo", createProduct);
 
 router.post("/admin/productos/editar/:id", editProductAction);
 

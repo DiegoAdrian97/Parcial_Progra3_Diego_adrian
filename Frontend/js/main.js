@@ -63,27 +63,25 @@ function renderizarProductos(lista, filtro = "") {
     contenedor.innerHTML = "<p>No se encontraron productos.</p>";
     return;
   }
-
   filtrados.forEach((producto) => {
     const div = document.createElement("div");
     div.classList.add("card");
-    // Normalizamos: la base de datos guarda el campo `img` (nombre o ruta relativa)
-    // Si el valor ya contiene una barra '/', asumimos que es una ruta y la usamos tal cual.
-    // En otro caso, la resolvemos contra `/assets/img/` (mapeado por el backend).
+
     const rawImg = producto.img || producto.imagen || "";
+
     const imagenUrl = rawImg
-      ? rawImg.includes("/")
-        ? rawImg
-        : `/assets/img/${rawImg}`
-      : "https://via.placeholder.com/250";
+      ? `http://localhost:3000/${rawImg}`
+      : "https://via.placeholder.com/150";
+
     div.innerHTML = `
-      <img src="${imagenUrl}" alt="${producto.nombre}">
-      <h3>${producto.nombre}</h3>
-      <p>$${producto.precio}</p>
-      <button class="add-to-cart" id-prod="${producto.id}">Agregar al carrito</button>
-    `;
+    <img src="${imagenUrl}" alt="${producto.nombre}">
+    <h3>${producto.nombre}</h3>
+    <p>$${producto.precio}</p>
+    <button class="add-to-cart" id-prod="${producto.id}">Agregar al carrito</button>
+  `;
     contenedor.appendChild(div);
   });
+
   productosFiltrados = lista;
   addToCart();
 }
@@ -163,14 +161,19 @@ function addToCart() {
     });
   });
 }
-
 function mostrarCarrito() {
   const contenedor = document.querySelector(".carrito-items");
   contenedor.innerHTML = "";
+
   carrito.forEach((producto, index) => {
     const div = document.createElement("div");
     div.classList.add("cart-product");
-    const imagenUrl = producto.imagen || "https://via.placeholder.com/100";
+
+    const rawImg = producto.img || producto.imagen || "";
+    const imagenUrl = rawImg
+      ? `http://localhost:3000/${rawImg}`
+      : "https://via.placeholder.com/100";
+
     div.innerHTML = `
       <img src="${imagenUrl}" alt="${producto.nombre}">
       <div class="cart-info">
@@ -185,6 +188,7 @@ function mostrarCarrito() {
     `;
     contenedor.appendChild(div);
   });
+
   configurarBotonesCantidad();
   actualizarTotal();
   actualizarContadorCarrito();
